@@ -1,4 +1,4 @@
-import PrintTask from "./printTask";
+import PrintTask from "./PrintTask.jsx";
 
 function TaskProgressing({ SendTask, tasks }) {
     return (
