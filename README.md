@@ -1,16 +1,100 @@
-# React + Vite
+# To-Do List (React + Tailwind CSS)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Simple To-Do List application built with React and Tailwind CSS. Uses React hooks to manage state and callback props to transfer tasks between status containers (e.g., not-done → in-progress → done).
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Create and list tasks
+- Move tasks between statuses using buttons (status change handled by parent state)
+- Responsive UI styled with Tailwind CSS
+- Lightweight, no backend required (uses in-memory state)
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React (functional components + hooks)
+- Tailwind CSS for styling
+- Vite / Create React App (project starter — follow your existing setup)
 
-## Expanding the ESLint configuration
+## Project structure (important files)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```
+src/
+  components/
+    printTask.jsx       — task item component (emits status change via callback)
+    TaskNotDone.jsx     — lists tasks not done
+    ...other components
+  App.jsx
+  main.jsx
+public/
+package.json
+```
+
+## How status transfer works
+
+- Task item components (e.g., `PrintTask`) do NOT mutate props.
+- They receive an `onChangeStatus(id, newStatus)` callback prop from the parent.
+- When a button is clicked, the component calls `onChangeStatus` with the task id and desired status.
+- The parent component updates its state (e.g., moves the item to a different array or updates the task's `status` property), which re-renders the lists.
+
+Example parent handler (conceptual):
+
+```js
+// find task by id, update status, update state arrays
+function handleChangeStatus(id, newStatus) {
+  setTasks(prev => prev.map(t => t.id === id ? { ...t, status: newStatus } : t));
+}
+```
+
+## Setup & Run
+
+1. Install dependencies
+
+   ```bash
+   npm install
+   ```
+
+   or
+
+   ```bash
+   yarn
+   ```
+
+2. Start dev server
+
+   ```bash
+   npm run dev
+   ```
+
+   or
+
+   ```bash
+   yarn dev
+   ```
+
+   (or `npm start` / `yarn start` depending on starter)
+
+3. Build for production
+
+   ```bash
+   npm run build
+   ```
+
+   or
+
+   ```bash
+   yarn build
+   ```
+
+## Notes
+
+- Ensure you pass valid arrays as props to list components (`contents`, `tasks`, etc.) or provide default `[]` to avoid runtime errors.
+- Keep mutation out of components; update state in parent components via setters from `useState`.
+
+## Contributing
+
+- Open issues or PRs for bug fixes or small improvements.
+- Keep changes focused and update README if APIs change.
+
+## License
+
+- MIT (or choose appropriate license)
