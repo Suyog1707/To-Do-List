@@ -1,4 +1,4 @@
-import PrintTask from "./printTask.jsx";
+import PrintTask from "./PrintTask.jsx";
 
 function TaskNotDone({ SendTask, tasks }) {
 
