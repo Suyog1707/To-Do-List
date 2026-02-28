@@ -1,20 +1,23 @@
 import PrintTask from "./PrintTask.jsx";
 
-function TaskDone({ tasks }) {
+function TaskDone({ SendTask, tasks }) {
     return (
         <div>
             {tasks.map((task) => {
 
-                const convertToDelete = () => {
-                    task.status = 'Delete'
+                const convertToDelete = async () => {
+                    task.status = 'Delete';
+                    await SendTask();
                 }
 
-                const convertToToDo = () => {
-                    task.status = 'to-do'
+                const convertToToDo = async () => {
+                    task.status = 'to-do';
+                    await SendTask();
                 }
 
-                const convertToProgress = () => {
-                    task.status = 'in-progress'
+                const convertToProgress = async () => {
+                    task.status = 'in-progress';
+                    await SendTask();
                 }
 
                 return task.status === 'done' &&

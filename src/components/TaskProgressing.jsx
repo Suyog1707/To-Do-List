@@ -5,19 +5,19 @@ function TaskProgressing({ SendTask, tasks }) {
         <div>
             {tasks.map((task) => {
 
-                const convertToDelete = () => {
-                    task.status = 'Delete'
-                    SendTask;
+                const convertToDelete = async () => {
+                    task.status = 'Delete';
+                    await SendTask();
                 }
 
-                const convertToToDo = () => {
-                    task.status = 'to-do'
-                    SendTask;
+                const convertToToDo = async () => {
+                    task.status = 'to-do';
+                    await SendTask();
                 }
 
-                const convertToDone = () => {
+                const convertToDone = async () => {
                     task.status = 'done'
-                    SendTask;
+                    await SendTask();
                 }
 
                 return task.status === 'in-progress' &&

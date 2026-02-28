@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import TaskNotDone from './components/TaskNotDone';
 import TaskProgressing from './components/TaskProgressing';
@@ -10,11 +10,15 @@ function App() {
 
   const [inputTask, setInputTask] = useState('');
 
+   useEffect( () => {
+      localStorage.setItem('taskToDo', JSON.stringify(tasks));
+    }, [tasks]);
+
   const addToTask = (event) => {
     setInputTask(event.target.value);
   };
 
-  async function SendTask() {
+  const SendTask = async () => {
     setInputTask('');
 
     const newTask = [
@@ -28,6 +32,11 @@ function App() {
 
     setTasks(newTask);
   }
+
+  useEffect(() => {
+    SendTask();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function handleKeyDown(event) {
 

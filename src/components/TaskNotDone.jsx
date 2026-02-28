@@ -6,19 +6,19 @@ function TaskNotDone({ SendTask, tasks }) {
         <div>
             {tasks.map((task) => {
 
-                const convertToDelete = () => {
+                const convertToDelete = async () => {
                     task.status = 'Delete'
-                    SendTask;
+                    await SendTask();
                 }
 
-                const convertToProgress = () => {
+                const convertToProgress = async () => {
                     task.status = 'in-progress'
-                    SendTask;
+                    await SendTask();
                 }
 
-                const convertToDone = () => {
+                const convertToDone = async () => {
                     task.status = 'done'
-                    SendTask;
+                    await SendTask();
                 }
 
                 if (task.status === 'to-do' && task.taskToDo != '') {
